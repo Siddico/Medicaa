@@ -1,0 +1,64 @@
+﻿﻿@model project_hospital_management_system.Models.Invoice
+
+@{
+    ViewBag.Title = "Invoice Details";
+}
+
+<h2>Invoice Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateIssued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateIssued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @{
+                string statusClass = "";
+                switch (Model.Status)
+                {
+                    case "Paid":
+                        statusClass = "label label-success";
+                        break;
+                    case "Pending":
+                        statusClass = "label label-warning";
+                        break;
+                    case "Overdue":
+                        statusClass = "label label-danger";
+                        break;
+                }
+            }
+            <span class="@statusClass">@Html.DisplayFor(model => model.Status)</span>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

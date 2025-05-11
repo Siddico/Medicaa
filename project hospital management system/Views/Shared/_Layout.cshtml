@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hospital Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* Dashboard Styles */
+        body {
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+
+        .navbar-inverse {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+        }
+
+        .navbar-inverse .navbar-brand,
+        .navbar-inverse .navbar-nav > li > a {
+            color: #ecf0f1;
+        }
+
+        .navbar-inverse .navbar-brand:hover,
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: #3498db;
+        }
+
+        .dashboard-header {
+            margin-bottom: 30px;
+        }
+
+        .date-time-widget {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+
+        #current-time {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .stats-cards {
+            margin-bottom: 30px;
+        }
+
+        .stats-cards .panel {
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .stats-cards .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stats-cards .panel-heading {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .stats-cards .panel-footer {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background-color: #f8f9fa;
+        }
+
+        .stats-cards .huge {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .panel-green {
+            border-color: #5cb85c;
+        }
+
+        .panel-green .panel-heading {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .panel-yellow {
+            border-color: #f0ad4e;
+        }
+
+        .panel-yellow .panel-heading {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .panel-red {
+            border-color: #d9534f;
+        }
+
+        .panel-red .panel-heading {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 20px 0;
+            text-align: center;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Hospital Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i> Patients <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "Patient")"><i class="fa fa-list"></i> All Patients</a></li>
+                            <li><a href="@Url.Action("Create", "Patient")"><i class="fa fa-user-plus"></i> Add Patient</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-md"></i> Doctors <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "Doctor")"><i class="fa fa-list"></i> All Doctors</a></li>
+                            <li><a href="@Url.Action("Create", "Doctor")"><i class="fa fa-user-plus"></i> Add Doctor</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar"></i> Appointments <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "Appointment")"><i class="fa fa-list"></i> All Appointments</a></li>
+                            <li><a href="@Url.Action("Create", "Appointment")"><i class="fa fa-calendar-plus-o"></i> Schedule Appointment</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-heartbeat"></i> Medical <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "MedicalRecord")"><i class="fa fa-file-text-o"></i> Medical Records</a></li>
+                            <li><a href="@Url.Action("Index", "Medication")"><i class="fa fa-medkit"></i> Medications</a></li>
+                            <li><a href="@Url.Action("Index", "Prescription")"><i class="fa fa-list-alt"></i> Prescriptions</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="@Url.Action("Index", "Invoice")"><i class="fa fa-money"></i> Invoices</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info-circle"></i> About <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("About", "Home")"><i class="fa fa-hospital-o"></i> About Us</a></li>
+                            <li><a href="@Url.Action("Contact", "Home")"><i class="fa fa-envelope"></i> Contact</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4><i class="fa fa-hospital-o"></i> Hospital Management System</h4>
+                    <p>A comprehensive solution for managing hospital operations, patient records, appointments, and billing.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4><i class="fa fa-map-marker"></i> Location</h4>
+                    <address>
+                        <strong>Hospital Address</strong><br>
+                        123 Medical Center Drive<br>
+                        Healthcare City, HC 12345<br>
+                        <abbr title="Phone"><i class="fa fa-phone"></i></abbr> (123) 456-7890
+                    </address>
+                </div>
+                <div class="col-md-4">
+                    <h4><i class="fa fa-clock-o"></i> Hours of Operation</h4>
+                    <ul class="list-unstyled">
+                        <li><strong>Emergency:</strong> 24/7</li>
+                        <li><strong>Outpatient:</strong> Mon-Fri 8:00 AM - 6:00 PM</li>
+                        <li><strong>Weekends:</strong> 9:00 AM - 1:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <hr>
+                    <p>&copy; @DateTime.Now.Year - Hospital Management System | All Rights Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
