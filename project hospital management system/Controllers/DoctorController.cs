@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -12,7 +12,7 @@ namespace project_hospital_management_system.Controllers
 {
     public class DoctorController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private HospitalDbContext db = new HospitalDbContext();
 
         // GET: Doctor
         public ActionResult Index()
